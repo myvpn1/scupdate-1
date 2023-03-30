@@ -20,16 +20,17 @@ TANGGAL=$(date '+%Y-%m-%d')
 TIMES="10"
 NAMES=$(whoami)
 IMP="wget -q -O"    
-CHATID="1316596937"
+CHATID="5491480146"
 LOCAL_DATE="/usr/bin/"
 MYIP=$(wget -qO- ipinfo.io/ip)
 ISP=$(wget -qO- ipinfo.io/org)
 CITY=$(curl -s ipinfo.io/city)
 TIME=$(date +'%Y-%m-%d %H:%M:%S')
 RAMMS=$(free -m | awk 'NR==2 {print $2}')
-KEY="6003347945:AAHv1Ti4HQliYwpYm8sbKrriDkSMqqJLUqE"
+KEY="6042674179:AAE_8Jd3b4KIhiLDy1zJ1YhVgFz1q_SQjZI"
 URL="https://api.telegram.org/bot$KEY/sendMessage"
-REPO="https://raw.githubusercontent.com/rizkihdyt6/scupdate/rizki/"
+REPO="https://raw.githubusercontent.com/myridwan/abc/ipuk/"
+CDNF="https://raw.githubusercontent.com/myridwan/abc/ipuk"
 APT="apt-get -y install "
 domain=$(cat /root/domain)
 start=$(date +%s)
@@ -128,10 +129,30 @@ function dir_xray() {
 ### Tambah domain
 function add_domain() {
     echo "`cat /etc/banner`" | lolcat
-    read -rp "Input Your Domain For This Server :" -e SUB_DOMAIN
-    echo "Host : $SUB_DOMAIN"
-    echo $SUB_DOMAIN > /root/domain
+    echo -e "${red}    ♦️${NC} ${green} CUSTOM SETUP DOMAIN VPS     ${NC}"
+    echo -e "${red}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m${NC}"
+    echo "1. Use Domain From Script / Gunakan Domain Dari Script"
+    echo "2. Choose Your Own Domain / Pilih Domain Sendiri"
+    echo -e "${red}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m${NC}"
+    read -rp "Choose Your Domain Installation : " dom 
+
+    if test $dom -eq 1; then
+    clear
+    wget -q -O /root/cf "${CDNF}/cf" >/dev/null 2>&1
+    chmod +x /root/cf
+    bash /root/cf | tee /root/install.log
+    print_success "DomainAll"
+    elif test $dom -eq 2; then
+    read -rp "Enter Your Domain : " domen 
+    echo $domen > /root/domain
     cp /root/domain /etc/xray/domain
+    else 
+    echo "Not Found Argument"
+    exit 1
+    fi
+    echo -e "${GREEN}Done!${NC}"
+    sleep 2
+    clear
 }
 
 ### Pasang SSL
