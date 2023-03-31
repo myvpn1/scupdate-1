@@ -115,7 +115,7 @@ function dir_xray() {
     mkdir -p /var/log/xray/
     mkdir -p /var/www/html/
     mkdir -p /etc/geostore/
-#    chmod +x /var/log/xray
+    # chmod +x /var/log/xray
     touch /var/log/xray/{access.log,error.log}
     chmod 777 /var/log/xray/*.log
     touch /etc/vmess/.vmess.db
@@ -182,7 +182,7 @@ function install_xray(){
     xray_latest="$(curl -s https://api.github.com/repos/dharak36/Xray-core/releases | grep tag_name | sed -E 's/.*"v(.*)".*/\1/' | head -n 1)"
     xraycore_link="https://github.com/dharak36/Xray-core/releases/download/v$xray_latest/xray.linux.64bit"
     curl -sL "$xraycore_link" -o xray
-#    unzip -q xray.zip && rm -rf xray.zip
+    # > unzip -q xray.zip && rm -rf xray.zip
     mv xray /usr/sbin/xray
     print_success "Xray Core"
     
@@ -261,7 +261,7 @@ function download_config(){
     wget -O /etc/nginx/conf.d/geostore.conf "${REPO}config/geovpn.conf" >/dev/null 2>&1
     sed -i "s/xxx/${domain}/g" /etc/nginx/conf.d/geostore.conf
     wget -O /etc/nginx/nginx.conf "${REPO}config/nginx.conf" >/dev/null 2>&1
-    # curl "${REPO}caddy/install.sh" | bash 
+    # > curl "${REPO}caddy/install.sh" | bash 
     wget -q -O /etc/squid/squid.conf "${REPO}config/squid.conf" >/dev/null 2>&1
     echo "visible_hostname $(cat /etc/xray/domain)" /etc/squid/squid.conf
     mkdir -p /var/log/squid/cache/
@@ -417,10 +417,10 @@ touch /root/.install.log
 cat >/root/tmp <<-END
 #!/bin/bash
 #vps
-### Geostoretunnel $TANGGAL $MYIP
+### RizkiHdytstoreVPN $TANGGAL $MYIP
 END
 ####
-GEOPROJECT() {
+RIZKIHDYTPROJECT() {
     data=($(cat /root/tmp | grep -E "^### " | awk '{print $2}'))
     for user in "${data[@]}"; do
         exp=($(grep -E "^### $user" "/root/tmp" | awk '{print $3}'))
@@ -494,7 +494,7 @@ function finish(){
 "
     curl -s --max-time $TIMES -d "chat_id=$CHATID&disable_web_page_preview=1&text=$TEXT&parse_mode=html" $URL >/dev/null
     cp /etc/openvpn/*.ovpn /var/www/html/
-    # sed -i "s/xxx/${domain}/g" /var/www/html/index.html
+    # > sed -i "s/xxx/${domain}/g" /var/www/html/index.html
     sed -i "s/xxx/${domain}/g" /etc/haproxy/haproxy.cfg
     sed -i "s/xxx/${MYIP}/g" /etc/squid/squid.conf
     chown -R www-data:www-data /etc/msmtprc
@@ -554,7 +554,7 @@ echo ""
 
 }
 cd /tmp
-GEOPROJECT
+RIZKIHDYTPROJECT
 first_setup
 dir_xray
 add_domain
